@@ -13,11 +13,16 @@ defineProps({
 });
 
 const boardStore = useBoardStore();
+const router = useRouter();
 
 const editNameState = ref(false);
 
 const deleteColumn = (index) => {
   boardStore.deleteColumn(index);
+};
+
+const gotoTask = (taskId) => {
+  router.push(`/tasks/${taskId}`);
 };
 </script>
 
@@ -44,7 +49,7 @@ const deleteColumn = (index) => {
 
     <ul>
       <li v-for="task in column.tasks" :key="task.id" class="mb-4">
-        <UCard>
+        <UCard @click="gotoTask(task.id)">
           <strong> {{ task.name }}</strong>
           {{ task.description }}
         </UCard>
