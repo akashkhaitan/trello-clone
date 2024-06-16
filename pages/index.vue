@@ -4,6 +4,7 @@ import { useBoardStore } from "~/stores/boardStore";
 const boardStore = useBoardStore();
 
 const newColumnName = ref("");
+const editNameState = ref(false);
 
 const addColumn = () => {
   boardStore.addColumn(newColumnName.value);
@@ -19,7 +20,25 @@ const addColumn = () => {
         :key="column.name"
         class="column"
       >
-        <h2 class="mb-4">{{ column.name }}</h2>
+        <div class="column-header mb-4">
+          <div>
+            <h2>{{ column.name }}</h2>
+            <UInput
+              type="text"
+              v-model="column.name"
+              v-if="editNameState"
+            ></UInput>
+          </div>
+          <div>
+            <UButton
+              icon="i-heroicons-pencil-square"
+              class="mr-2"
+              @click="editNameState = !editNameState"
+            />
+            <UButton icon="i-heroicons-trash" color="red" />
+          </div>
+        </div>
+
         <ul>
           <li v-for="task in column.tasks" :key="task.id" class="mb-4">
             <UCard>
