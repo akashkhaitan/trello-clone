@@ -10,13 +10,17 @@ const addColumn = () => {
   boardStore.addColumn(newColumnName.value);
   newColumnName.value = "";
 };
+
+const deleteColumn = (index) => {
+  boardStore.deleteColumn(index);
+};
 </script>
 
 <template>
   <div class="board-wrapper">
     <main class="board">
       <UContainer
-        v-for="column in boardStore.board.columns"
+        v-for="(column, columnIndex) in boardStore.board.columns"
         :key="column.name"
         class="column"
       >
@@ -35,7 +39,11 @@ const addColumn = () => {
               class="mr-2"
               @click="editNameState = !editNameState"
             />
-            <UButton icon="i-heroicons-trash" color="red" />
+            <UButton
+              icon="i-heroicons-trash"
+              color="red"
+              @click="deleteColumn(columnIndex)"
+            />
           </div>
         </div>
 

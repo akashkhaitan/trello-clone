@@ -12,5 +12,9 @@ export const useBoardStore = defineStore("boardStore", () => {
     ];
   };
 
-  return { board, addColumn };
+  const deleteColumn = (columnIndex: number) => {
+    board.value.columns.splice(columnIndex, 1);
+  };
+
+  return { board, addColumn, deleteColumn };
 });
